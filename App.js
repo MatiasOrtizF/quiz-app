@@ -1,9 +1,21 @@
-import HomeScreen from './src/components/screen/HomeScreen';
-import CategorysScreen from './src/components/screen/CategorysScreen';
-import QuestionScreen from './src/components/screen/QuestionScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screen/HomeScreen';
+import CategorysScreen from './src/screen/CategorysScreen';
+import QuestionScreen from './src/screen/QuestionScreen';
+import RankingScreen from './src/screen/RankingScreen';
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <QuestionScreen/>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="RankingScreen" component={RankingScreen}/>
+        <Stack.Screen name="CategorysScreen" component={CategorysScreen}/>
+        <Stack.Screen name="QuestionScreen" component={QuestionScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
