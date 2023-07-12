@@ -11,16 +11,26 @@ const styles = StyleSheet.create({
         paddingVertical: 45
     },
     title: {
-        color:"white", fontSize:30, fontWeight:700, marginBottom:10
+        color:"white", 
+        fontSize:30, 
+        fontWeight:700, 
+        marginBottom:10
     },
     subTitle: {
-        color:"white", fontSize:16, fontWeight:600
+        color:"white", 
+        fontSize:16,
+        fontWeight:600
     },
     buttonHome: {
-        padding:15, borderRadius:20, marginVertical:10
+        padding:15, 
+        borderRadius:20, 
+        marginVertical:10
     },
     buttonHomeText: {
-        color:"white", fontSize:21, fontWeight:600, alignSelf: "center"
+        color:"white", 
+        fontSize:21, 
+        fontWeight:600, 
+        alignSelf: "center"
     },
     categoryIcons: {
         width: 100, 
@@ -36,12 +46,23 @@ const styles = StyleSheet.create({
         color:"white",
         fontSize: 17,
         fontWeight: 600,
-
     },
     rankingPtsText: {
         color:"white",
         fontWeight:600,
         alignSelf:"center"
+    },
+    question: {
+        color:"white", 
+        fontSize:27, 
+        fontWeight:700, 
+        marginBottom:10
+    },
+    buttonAnswerText: {
+        color:"white", 
+        fontSize:18, 
+        fontWeight:700, 
+        alignSelf: "center"
     }
 });
 
