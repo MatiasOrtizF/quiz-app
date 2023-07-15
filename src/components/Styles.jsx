@@ -36,6 +36,12 @@ const styles = StyleSheet.create({
         width: 100, 
         height: 100,
     },
+    topRankingBox: {
+        backgroundColor:"#5F3A93", 
+        padding:15, 
+        height:100,  
+        justifyContent:"center"
+    },
     rankingBoxText: {
         color:"white",
         fontSize:35,
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
         color:"white",
         fontSize: 17,
         fontWeight: 600,
+        alignSelf:"center"
     },
     rankingPtsText: {
         color:"white",

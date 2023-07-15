@@ -1,38 +1,28 @@
-import { Text, View, Image, } from 'react-native';
+import { Text, View, Image, FlatList } from 'react-native';
 import styles from './Styles'
+import { useEffect } from 'react';
 
-export default function TopRanking() {
+export default function TopRanking({usersRanking}) {
+    // heigth: 100 , 125 , 75
 
     return (
         <View style={{flexDirection:"row"}}>
-            <View style={{alignSelf:"flex-end"}}>
-                <Text style={styles.rankingNameText}>DavisCurtis</Text>
-                <View style={{backgroundColor:"#5F3A93", marginVertical:10, padding:7, borderRadius:10}}>
-                    <Text style={styles.rankingPtsText}>140 pts</Text>
+            {usersRanking?.map((user, index) => (
+                <View key={index} style={{ alignSelf: "flex-start" }}>
+                    {index == 0 ?
+                        <Image style={{alignSelf:"center"}} source={require('../../assets/crown.png')}/>
+                    :
+                        null
+                    }
+                    <Text style={styles.rankingNameText}>{user.name}</Text>
+                    <View style={{backgroundColor:"#5F3A93", marginVertical:10, padding:7, borderRadius:10}}>
+                        <Text style={styles.rankingPtsText}>{user.points} pts</Text>
+                    </View>
+                    <View style={[styles.topRankingBox, index==0 ? {heigth:125} : index==3 ? {heigth:75}: {heigth:100}]}>
+                        <Text style={styles.rankingBoxText}>{index+1}</Text>
+                    </View>
                 </View>
-                <View style={{backgroundColor:"#5F3A93", padding:15, height:100,  justifyContent:"center"}}>
-                    <Text style={styles.rankingBoxText}>2</Text>
-                </View>
-            </View>
-            <View style={{alignSelf:"flex-end"}}>
-                <Image style={{alignSelf:"center"}} source={require('../../assets/crown.png')}></Image>
-                <Text style={styles.rankingNameText}>AlenaDonin</Text>
-                <View style={{backgroundColor:"#5F3A93", marginVertical:10, padding:7, borderRadius:10}}>
-                    <Text style={styles.rankingPtsText}>180 pts</Text>
-                </View>
-                <View style={{backgroundColor:"#6E5393", padding:15, height:125,  justifyContent:"center"}}>
-                    <Text style={styles.rankingBoxText}>1</Text>
-                </View>
-            </View>
-            <View style={{alignSelf:"flex-end"}}>
-                <Text style={styles.rankingNameText}>CraigGouse</Text>
-                <View style={{backgroundColor:"#5F3A93", marginVertical:10, padding:7, borderRadius:10}}>
-                    <Text style={styles.rankingPtsText}>130 pts</Text>
-                </View>
-                <View style={{backgroundColor:"#5F3A93", padding:15, height:75, justifyContent:"center",}}>
-                    <Text style={styles.rankingBoxText}>3</Text>
-                </View>
-            </View>
+            ))}
         </View>
     );
 }

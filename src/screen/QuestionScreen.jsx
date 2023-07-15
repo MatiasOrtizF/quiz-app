@@ -9,7 +9,7 @@ export default function QuestionScreen({route}) {
     const {categorySelected} = route.params
     
     const [questions, setQuestions] = useState([]);
-    const [questionNumber, setQuestionNumber] = useState(1);
+    const [questionNumber, setQuestionNumber] = useState(11);
     const [timer, setTimer] = useState(30)
     const [points, setPoints] = useState(0)
     const [results, setResults] = useState(false)
@@ -81,7 +81,7 @@ export default function QuestionScreen({route}) {
                 </View>
             :
                 questionNumber > 10 ?
-                    <FinishedQuestions/>
+                    <FinishedQuestions points={points}/>
                 :
                     <View style={{flex:1, marginTop:Constants.statusBarHeight, padding:25, justifyContent:"space-between"}}>
                     <View>
