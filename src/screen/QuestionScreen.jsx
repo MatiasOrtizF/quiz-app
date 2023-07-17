@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
-import styles from '../components/Styles'
+import { ImageBackground, Text, TouchableOpacity, View, Platform, SafeAreaView } from 'react-native';
+import styles from '../components/Styles';
 import Constants from 'expo-constants';
 import { useEffect, useState } from 'react';
 import FinishedQuestions from '../components/FinishedQuestions';
+import Loading from '../components/Loading';
 
 export default function QuestionScreen({route}) {
     const {categorySelected} = route.params
@@ -74,16 +75,16 @@ export default function QuestionScreen({route}) {
         } 
     }
     return (
-        <ImageBackground style={{flex:1}} source={{uri:'https://www.fonewalls.com/wp-content/uploads/2019/10/Gradient-Background-Wallpaper-024.jpg'}}>
+        <ImageBackground style={{flex:1}} source={require('../assets/bg-secundary.jpg')}>
+            <StatusBar style="inverted" />
             {loading ?
-                <View style={{alignItems:"center", justifyContent:"center"}}>
-                    <ActivityIndicator size="large" color="#00ff00" />
-                </View>
+                <Loading/>
             :
                 questionNumber > 10 ?
                     <FinishedQuestions points={points}/>
                 :
-                    <View style={{flex:1, marginTop:Constants.statusBarHeight, padding:25, justifyContent:"space-between"}}>
+                <SafeAreaView style={{flex:1, padding:25, justifyContent:"space-between"}}>
+                    <View style={{marginTop: Platform.OS === "android" && Constants.statusBarHeight}}>
                     <View>
                         <Text style={{alignSelf:"center", color:"white", fontSize:22, fontWeight:700, marginBottom:20}}>{categorySelected===21? "Sports": categorySelected===20? "Mythology": categorySelected===11? "Film": "History"}</Text>
                         {timer > 10 ?
@@ -110,8 +111,8 @@ export default function QuestionScreen({route}) {
                         ))}
                     </View>
                     </View>
+                </SafeAreaView>
             }
-            <StatusBar style="inverted" />
         </ImageBackground>
     );
 }

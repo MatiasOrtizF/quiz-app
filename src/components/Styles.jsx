@@ -1,35 +1,40 @@
 import { StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
     containerHome: {
         flex: 1,
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: Constants.statusBarHeight,
         paddingHorizontal: 25,
         paddingVertical: 45
     },
+    constainerRanking: {
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        width: "100%", 
+        padding: 10
+    },
     title: {
-        color:"white", 
-        fontSize:30, 
-        fontWeight:700, 
-        marginBottom:10
+        color: "white", 
+        fontSize: 30, 
+        fontWeight: 700, 
+        marginBottom: 10
     },
     subTitle: {
-        color:"white", 
-        fontSize:16,
-        fontWeight:600
+        color: "white", 
+        fontSize: 16,
+        fontWeight: 600
     },
     buttonHome: {
-        padding:15, 
-        borderRadius:20, 
-        marginVertical:10
+        padding: 15, 
+        borderRadius: 20, 
+        marginVertical: 10
     },
     buttonHomeText: {
-        color:"white", 
-        fontSize:21, 
-        fontWeight:600, 
+        color: "white", 
+        fontSize: 21, 
+        fontWeight: 600, 
         alignSelf: "center"
     },
     categoryIcons: {
@@ -37,38 +42,38 @@ const styles = StyleSheet.create({
         height: 100,
     },
     topRankingBox: {
-        backgroundColor:"#5F3A93", 
-        padding:15, 
-        height:100,  
-        justifyContent:"center"
+        backgroundColor: "#5F3A93", 
+        padding: 15, 
+        height: 100,  
+        justifyContent: "center"
     },
     rankingBoxText: {
-        color:"white",
-        fontSize:35,
-        fontWeight:700,
-        alignSelf:"center",
+        color: "white",
+        fontSize: 35,
+        fontWeight: 700,
+        alignSelf: "center",
     },
     rankingNameText: {
-        color:"white",
+        color: "white",
         fontSize: 17,
         fontWeight: 600,
-        alignSelf:"center"
+        alignSelf: "center"
     },
     rankingPtsText: {
-        color:"white",
-        fontWeight:600,
-        alignSelf:"center"
+        color: "white",
+        fontWeight: 600,
+        alignSelf: "center"
     },
     question: {
-        color:"white", 
-        fontSize:27, 
-        fontWeight:700, 
-        marginBottom:10
+        color: "white", 
+        fontSize: 27, 
+        fontWeight: 700, 
+        marginBottom: 10
     },
     buttonAnswerText: {
-        color:"white", 
-        fontSize:18, 
-        fontWeight:700, 
+        color: "white", 
+        fontSize: 18, 
+        fontWeight: 700, 
         alignSelf: "center"
     }
 });

@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { Text, TouchableOpacity, View, TextInput, Alert , SafeAreaView } from 'react-native';
 import styles from '../components/Styles'
 import { useState } from 'react';
 import firebase from '../database/firebase';
@@ -28,9 +28,16 @@ export default function FinishedQuestions(props) {
         }
     }
 
+    const handleButtonCancel = () => {
+        Alert.alert('Cancel', 'When canceling you will be directed to the home', [
+            {text: 'Cancel'},
+            {text: 'OK', onPress:()=> navigation.navigate('HomeScreen')},
+        ]);
+    }
+
     return (
-            <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
-                <Text style={styles.title}>81 Points</Text>
+            <SafeAreaView style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+                <Text style={styles.title}>{props.points} Points</Text>
                 <Text style={styles.subTitle}>Plase enter your user name!</Text>
                 <TextInput
                     style={{backgroundColor:"rgba(0, 0, 0, 0.5)", width:"90%", color:"white", padding:10, borderRadius:10, margin:10}}
@@ -39,9 +46,14 @@ export default function FinishedQuestions(props) {
                     onChangeText={(value)=> hadleChangeText('name', value)}
                     maxLength={12}
                 />
-                <TouchableOpacity onPress={()=> saveNewUser()} style={{alignSelf:"flex-end", marginRight:"6%", backgroundColor:"#562C8A", padding:8, borderRadius:10}}>
-                    <Text style={{color:"white", fontSize:16, fontWeight:700, alignSelf: "center"}}>Enviar</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={{flexDirection:"row", justifyContent:"space-between", width:"90%"}}>
+                    <TouchableOpacity onPress={()=> handleButtonCancel()} style={{alignSelf:"flex-end", backgroundColor:"#216534", padding:8, borderRadius:10}}>
+                        <Text style={{color:"white", fontSize:16, fontWeight:700, alignSelf: "center"}}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> navigation.navigate('RankingScreen')} style={{alignSelf:"flex-end", backgroundColor:"#562C8A", padding:8, borderRadius:10}}>
+                        <Text style={{color:"white", fontSize:16, fontWeight:700, alignSelf: "center"}}>Enviar</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
     );
 }

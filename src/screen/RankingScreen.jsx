@@ -1,12 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, Text, View, ScrollView, FlatList } from 'react-native';
-import styles from '../components/Styles'
+import { ImageBackground, Text, View, ScrollView, FlatList , ActivityIndicator, BackHandler, SafeAreaView, Platform } from 'react-native';
+import styles from '../components/Styles';
+import Loading from '../components/Loading';
 import TopRanking from '../components/TopRanking';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import firebase from '../database/firebase';
+import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 
 export default function RankingScreen() {
+    const navigation = useNavigation();
     const [usersRanking, setUsersRanking] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         firebase.db.collection('users').onSnapshot(querySnapshot=> {
@@ -23,8 +28,24 @@ export default function RankingScreen() {
 
             users.sort((a,b)=> b.points - a.points);
             setUsersRanking(users)
+            setLoading(false)
         })
     }, [])
+
+    useEffect(() => {
+        const onBackPress = () => {
+          // Perform custom navigation when going back
+          navigation.navigate('HomeScreen'); // Reemplaza 'ScreenName' con el nombre de la pantalla deseada
+          return true; // Indica que se ha manejado el evento de retroceso
+        };
+    
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            onBackPress
+        );
+    
+        return () => backHandler.remove(); // Limpia el listener al salir de la pantalla
+    }, [navigation]);
 
     // useEffect(()=> {
     //     rankingArr();
@@ -41,8 +62,13 @@ export default function RankingScreen() {
     // }
 
     return (
-        <ImageBackground style={{flex:1}} source={{uri:'https://i.pinimg.com/474x/03/ab/5c/03ab5c0e95e4a225583120d8fe47214b.jpg'}}>
-                <View style={{flex:1, justifyContent:"center", alignItems:"center", width:"100%", padding:10}}>
+        <ImageBackground style={{flex:1}} source={require('../assets/bg-primary.jpg')}>
+            <StatusBar style="inverted"/>
+            {loading ?
+                <Loading/>
+            :
+            <SafeAreaView style={{flex:1}}>
+                <View  style={[styles.constainerRanking, {marginTop: Platform.OS === "android" && Constants.statusBarHeight}]}>
                         <TopRanking usersRanking={usersRanking.slice(0, 3)}/>
                         <View style={{backgroundColor:"#C0C0C0", borderRadius:10, width:"100%", overflow:"hidden", padding:10}}>
                             <FlatList
@@ -62,7 +88,8 @@ export default function RankingScreen() {
                             />
                         </View>
                 </View>
-            <StatusBar style="dark"/>
+            </SafeAreaView>
+            }
         </ImageBackground>
     );
 }

@@ -12,8 +12,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="RankingScreen" component={RankingScreen}/>
-        <Stack.Screen name="CategorysScreen" component={CategorysScreen}/>
+        <Stack.Screen name="RankingScreen" component={RankingScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="CategorysScreen" component={CategorysScreen} options={{headerShown:false}}/>
         <Stack.Screen name="QuestionScreen" component={QuestionScreen} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>

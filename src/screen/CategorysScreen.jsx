@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, Text, TouchableOpacity, View, Image } from 'react-native';
+import Constants from 'expo-constants';
+import { ImageBackground, Text, TouchableOpacity, View, Image, SafeAreaView, ScrollView, Platform } from 'react-native';
 import styles from '../components/Styles'
 import TopRanking from '../components/TopRanking';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function CategorysScreen({navigation}) {
     const categorys = [
@@ -13,41 +13,43 @@ export default function CategorysScreen({navigation}) {
     ]
 
     return (
-        <ImageBackground style={{flex:1}} source={{uri:'https://www.fonewalls.com/wp-content/uploads/2019/10/Gradient-Background-Wallpaper-024.jpg'}}>
-            <StatusBar style="dark"/>
+        <ImageBackground style={{flex:1}} source={require('../assets/bg-secundary.jpg')}>
+            <StatusBar style="inverted"/>
             <ScrollView>
-                <View style={{flex:1, justifyContent:"space-between", paddingHorizontal:25}}>
-                    <View style={{marginBottom:15}}>
-                        <Text style={styles.title}>Let`s Play</Text>
-                        <Text style={styles.subTitle}>Choose a category to start playing</Text>
-                    </View>
-                    <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between"}}>
-                        <View style={{width:"45%"}}>
-                            {categorys.slice(0,2).map((category, index)=> (
-                                <View key={index}>
-                                    <TouchableOpacity onPress={()=> navigation.navigate('QuestionScreen', {categorySelected:category.number})} style={{backgroundColor:'rgba(0, 0, 0, 0.5)', paddingHorizontal:15, paddingVertical:10, borderRadius:20, marginVertical:5, alignItems:"center"}}>
-                                        <Image style={styles.categoryIcons} source={{uri:category.image}}></Image>
-                                    </TouchableOpacity>
-                                    <Text style={{color:"white", fontWeight:700, marginBottom:10, alignSelf:"center"}}>{category.name}</Text>
-                                </View>
-                            ))}
+                <SafeAreaView style={{flex:1, justifyContent:"space-between", paddingHorizontal:25}}>
+                    <View style={{marginTop: Platform.OS === "android" && Constants.statusBarHeight}}>
+                        <View style={{marginBottom:15}}>
+                            <Text style={styles.title}>Let`s Play</Text>
+                            <Text style={styles.subTitle}>Choose a category to start playing</Text>
                         </View>
+                        <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between"}}>
+                            <View style={{width:"45%"}}>
+                                {categorys.slice(0,2).map((category, index)=> (
+                                    <View key={index}>
+                                        <TouchableOpacity onPress={()=> navigation.navigate('QuestionScreen', {categorySelected:category.number})} style={{backgroundColor:'rgba(0, 0, 0, 0.5)', paddingHorizontal:15, paddingVertical:10, borderRadius:20, marginVertical:5, alignItems:"center"}}>
+                                            <Image style={styles.categoryIcons} source={{uri:category.image}}></Image>
+                                        </TouchableOpacity>
+                                        <Text style={{color:"white", fontWeight:700, marginBottom:10, alignSelf:"center"}}>{category.name}</Text>
+                                    </View>
+                                ))}
+                            </View>
 
-                        <View style={{width:"45%"}}>
-                            {categorys.slice(-2).map((category, index)=> (
-                                <View key={index}>
-                                    <TouchableOpacity onPress={()=> navigation.navigate('QuestionScreen', {categorySelected:category.number})} style={{backgroundColor:'rgba(0, 0, 0, 0.5)', paddingHorizontal:15, paddingVertical:10, borderRadius:20, marginVertical:5, alignItems:"center"}}>
-                                        <Image style={styles.categoryIcons} source={{uri:category.image}}/>
-                                    </TouchableOpacity>
-                                    <Text style={{color:"white", fontWeight:700, marginBottom:10, alignSelf:"center"}}>{category.name}</Text>
-                                </View>
-                            ))}
+                            <View style={{width:"45%"}}>
+                                {categorys.slice(-2).map((category, index)=> (
+                                    <View key={index}>
+                                        <TouchableOpacity onPress={()=> navigation.navigate('QuestionScreen', {categorySelected:category.number})} style={{backgroundColor:'rgba(0, 0, 0, 0.5)', paddingHorizontal:15, paddingVertical:10, borderRadius:20, marginVertical:5, alignItems:"center"}}>
+                                            <Image style={styles.categoryIcons} source={{uri:category.image}}/>
+                                        </TouchableOpacity>
+                                        <Text style={{color:"white", fontWeight:700, marginBottom:10, alignSelf:"center"}}>{category.name}</Text>
+                                    </View>
+                                ))}
+                            </View>
+                        </View>
+                        <View style={{alignItems:"center"}}>
+                            <TopRanking/>
                         </View>
                     </View>
-                    <View style={{alignItems:"center"}}>
-                        <TopRanking/>
-                    </View>
-                </View>
+                </SafeAreaView>
             </ScrollView>
         </ImageBackground>
     );
