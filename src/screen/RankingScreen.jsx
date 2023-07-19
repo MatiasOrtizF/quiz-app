@@ -67,17 +67,18 @@ export default function RankingScreen() {
             {loading ?
                 <Loading/>
             :
-            <SafeAreaView style={{flex:1}}>
-                <View  style={[styles.constainerRanking, {marginTop: Platform.OS === "android" && Constants.statusBarHeight}]}>
+                <SafeAreaView style={{flex:1}}>
+                    <View style={[styles.constainerRanking, {marginTop: Platform.OS === "android" && Constants.statusBarHeight}]}>
                         <TopRanking usersRanking={usersRanking.slice(0, 3)}/>
-                        <View style={{backgroundColor:"#C0C0C0", borderRadius:10, width:"100%", overflow:"hidden", padding:10}}>
                             <FlatList
+                                showsVerticalScrollIndicator={false}
+                                style={{maxHeight:350, padding:10, backgroundColor:"#D7DCE0", borderRadius:25, width:"100%"}}
                                 data={usersRanking.slice(3)}
                                 keyExtractor={(item, index)=> index.toString()}
                                 renderItem={({item, index})=> (
-                                    <View style={{backgroundColor:"#F9F9F9", margin:10, borderRadius:10, padding:15, flexDirection:"row"}}>
+                                    <View style={[{backgroundColor:"#F9F9F9", margin:10, borderRadius:15, padding:15, flexDirection:"row"},index+4==usersRanking.length?{marginBottom:30}: null]}>
                                         <View style={{justifyContent:"center", marginRight:15}}>
-                                            <Text style={{color:"gray"}}>{index+4}</Text>
+                                            <Text style={{color:"gray", fontWeight:800}}>{index+4}</Text>
                                         </View>
                                         <View>
                                             <Text style={{fontWeight:600, fontSize:16}}>{item.name}</Text>
@@ -86,9 +87,8 @@ export default function RankingScreen() {
                                     </View>
                                 )}
                             />
-                        </View>
-                </View>
-            </SafeAreaView>
+                    </View>
+                </SafeAreaView>
             }
         </ImageBackground>
     );
