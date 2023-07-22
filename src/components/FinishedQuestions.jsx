@@ -16,15 +16,25 @@ export default function FinishedQuestions(props) {
     }
 
     const saveNewUser = async () => {
-        // agregar para que el usuario tenga que tener +3 de longitud
-        if(!dataUser.name.trim()) {
-            alert("please provide a name")
+        if(dataUser.name.trim().length < 3) {
+            alert("Please provide a name with at least 3 characters.")
         } else {
-            await firebase.db.collection('users').add({
-                name: dataUser.name,
-                points: dataUser.points
-            })
-            navigation.navigate('RankingScreen')
+            const usuariosRef = firebase.db.collection('users');
+            const querySnapshot = await usuariosRef    
+                .orderBy('name')
+                .startAt(dataUser.name.toLowerCase())
+                .endAt(dataUser.name.toLowerCase() + '\uf8ff')
+                .get();
+                
+            if (!querySnapshot.empty) {
+                alert("Username is already in use. Please choose another name.");
+            } else {
+                await usuariosRef.add({
+                    name: dataUser.name,
+                    points: dataUser.points
+                });
+                navigation.navigate('RankingScreen')
+            }
         }
     }
 
@@ -50,7 +60,7 @@ export default function FinishedQuestions(props) {
                     <TouchableOpacity onPress={()=> handleButtonCancel()} style={{alignSelf:"flex-end", backgroundColor:"#216534", padding:8, borderRadius:10}}>
                         <Text style={{color:"white", fontSize:16, fontWeight:700, alignSelf: "center"}}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> navigation.navigate('RankingScreen')} style={{alignSelf:"flex-end", backgroundColor:"#562C8A", padding:8, borderRadius:10}}>
+                    <TouchableOpacity onPress={()=> saveNewUser()} style={{alignSelf:"flex-end", backgroundColor:"#562C8A", padding:8, borderRadius:10}}>
                         <Text style={{color:"white", fontSize:16, fontWeight:700, alignSelf: "center"}}>Enviar</Text>
                     </TouchableOpacity>
                 </View>

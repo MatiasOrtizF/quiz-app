@@ -10,7 +10,7 @@ export default function QuestionScreen({route}) {
     const {categorySelected} = route.params
     
     const [questions, setQuestions] = useState([]);
-    const [questionNumber, setQuestionNumber] = useState(11);
+    const [questionNumber, setQuestionNumber] = useState(1);
     const [timer, setTimer] = useState(30)
     const [points, setPoints] = useState(0)
     const [results, setResults] = useState(false)
