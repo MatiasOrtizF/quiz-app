@@ -11,7 +11,7 @@ export default function TopRanking({usersRanking}) {
                         :
                         null
                     }
-                    <Text style={styles.rankingNameText}>{index === 0 ? usersRanking[1].name : index === 1 ? usersRanking[0].name : user.name}</Text>
+                    <Text style={styles.rankingNameText}>{index === 0 ? usersRanking[1].userName : index === 1 ? usersRanking[0].userName : user.userName}</Text>
                     <View style={{ backgroundColor: "#5F3A93", marginVertical: 10, padding: 7, borderRadius: 10, alignSelf:"center"}}>
                         <Text style={styles.rankingPtsText}>{index === 0 ? usersRanking[1].points : index === 1 ? usersRanking[0].points : user.points} pts</Text>
                     </View>

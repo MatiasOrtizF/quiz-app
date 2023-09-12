@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, Text, View, ScrollView, FlatList , ActivityIndicator, BackHandler, SafeAreaView, Platform } from 'react-native';
+import { ImageBackground, Text, View, FlatList, BackHandler, SafeAreaView, Platform } from 'react-native';
 import styles from '../components/Styles';
 import Loading from '../components/Loading';
 import TopRanking from '../components/TopRanking';
 import React, { useEffect, useState } from 'react';
-import firebase from '../database/firebase';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
+import UserService from '../services/UserService';
 
 export default function RankingScreen() {
     const navigation = useNavigation();
@@ -14,29 +14,28 @@ export default function RankingScreen() {
     const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
-        firebase.db.collection('users').onSnapshot(querySnapshot=> {
+        UserService.getAllUsers().then(response=> {
             const users = [];
-
-            querySnapshot.docs.forEach(doc=> {
-                const {name, points} = doc.data()
+            response.data.forEach((userData) => {
+                const {userName, points} = userData;
                 users.push({
-                    id: doc.id,
-                    name,
+                    id: userData.id,
+                    userName,
                     points
-                })
+                });
             });
-
             users.sort((a,b)=> b.points - a.points);
-            setUsersRanking(users)
-            setLoading(false)
+            setUsersRanking(users);
+            setLoading(false);
+        }).catch(error=> {
+            console.log(error);
         })
     }, [])
 
     useEffect(() => {
         const onBackPress = () => {
-          // Perform custom navigation when going back
-          navigation.navigate('HomeScreen'); // Reemplaza 'ScreenName' con el nombre de la pantalla deseada
-          return true; // Indica que se ha manejado el evento de retroceso
+            navigation.navigate('HomeScreen');
+            return true;
         };
     
         const backHandler = BackHandler.addEventListener(
@@ -44,22 +43,8 @@ export default function RankingScreen() {
             onBackPress
         );
     
-        return () => backHandler.remove(); // Limpia el listener al salir de la pantalla
+        return () => backHandler.remove();
     }, [navigation]);
-
-    // useEffect(()=> {
-    //     rankingArr();
-    // }, [usersRanking])
-
-    // async function fetchData() {
-    //     const response = await fetch("http://localhost:8080/ranking");
-    //     const data = await response.json();
-    //     setUsersRanking(data);
-    // }
-
-    // const rankingArr = () => {
-    //     usersRanking.sort((a,b)=> b.points - a.points);
-    // }
 
     return (
         <ImageBackground style={{flex:1}} source={require('../assets/bg-primary.jpg')}>
@@ -81,7 +66,7 @@ export default function RankingScreen() {
                                             <Text style={{color:"gray", fontWeight:800}}>{index+4}</Text>
                                         </View>
                                         <View>
-                                            <Text style={{fontWeight:600, fontSize:16}}>{item.name}</Text>
+                                            <Text style={{fontWeight:600, fontSize:16}}>{item.userName}</Text>
                                             <Text style={{color:"gray"}}>{item.points} pts</Text>
                                         </View>
                                     </View>

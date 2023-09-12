@@ -1,40 +1,35 @@
-import { Text, TouchableOpacity, View, TextInput, Alert , SafeAreaView } from 'react-native';
+import { Text, TouchableOpacity, View, TextInput, Alert, SafeAreaView } from 'react-native';
 import styles from '../components/Styles'
 import { useState } from 'react';
-import firebase from '../database/firebase';
 import { useNavigation } from '@react-navigation/native';
+import UserService from '../services/UserService';
 
 export default function FinishedQuestions(props) {
     const navigation = useNavigation();
     const [dataUser, setDataUser] = useState({
-        name: "",
+        userName: "",
         points: props.points,
     });
 
-    const hadleChangeText = (name, value) => {
-        setDataUser({...dataUser, [name]: value})
+    const hadleChangeText = (userName, value) => {
+        setDataUser({...dataUser, [userName]: value})
     }
 
-    const saveNewUser = async () => {
-        if(dataUser.name.trim().length < 3) {
+    const saveNewUser = () => {
+        if(dataUser.userName.trim().length < 3 ) {
             alert("Please provide a name with at least 3 characters.")
         } else {
-            const usuariosRef = firebase.db.collection('users');
-            const querySnapshot = await usuariosRef    
-                .orderBy('name')
-                .startAt(dataUser.name.toLowerCase())
-                .endAt(dataUser.name.toLowerCase() + '\uf8ff')
-                .get();
-                
-            if (!querySnapshot.empty) {
-                alert("Username is already in use. Please choose another name.");
-            } else {
-                await usuariosRef.add({
-                    name: dataUser.name,
-                    points: dataUser.points
-                });
+            UserService.addUser(dataUser)
+            .then(() => {
                 navigation.navigate('RankingScreen')
-            }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 400) {
+                    alert(error.response.data);
+                } else {
+                    console.error("Error:", error);
+                }
+            });
         }
     }
 
@@ -53,7 +48,7 @@ export default function FinishedQuestions(props) {
                     style={{backgroundColor:"rgba(0, 0, 0, 0.5)", width:"90%", color:"white", padding:10, borderRadius:10, margin:10}}
                     placeholder= "User Name"
                     placeholderTextColor = "white"
-                    onChangeText={(value)=> hadleChangeText('name', value)}
+                    onChangeText={(value)=> hadleChangeText('userName', value)}
                     maxLength={12}
                 />
                 <View style={{flexDirection:"row", justifyContent:"space-between", width:"90%"}}>
