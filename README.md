@@ -1,10 +1,5 @@
 # [_**Quiz**_]("Live app")
 
-## Quiz
-Aplicaciones de preguntas y respuestas con categorías. <br>
-Hecha con React Native.
-
-
 ## Quiz App
 "Quiz" es una aplicación de preguntas y respuestas con 4 categorías y un ranking de jugadores.
 
@@ -19,14 +14,15 @@ Hecha con React Native.
 
 
 ## Tecnologias Utilizadas
+### _Lenguajes_
 <p align='center'>
-    <img height="30"src="https://github.com/MatiasOrtizF/portfolio/tree/main/src/assets/js.png">
-    <img height="30"src="https://github.com/MatiasOrtizF/portfolio/tree/main/src/assets/react.png">
+    <img height="30"src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E">
 </p>
 
 ### _Librerias_
 
-- [reat-navigation] - Librería de enrutamiento y navegación.
+- [react-navigation] - Librería de enrutamiento y navegación.
+- [axios] - Librería para peticiones HTTP en JavaScript.
 
 
 ## Instalación
@@ -48,4 +44,5 @@ npm install -g expo-cli
 expo start
 ```
 
-[reat-navigation]: <https://reactnavigation.org/>
+[react-navigation]: <https://reactnavigation.org/>
+[axios]: <https://axios-http.com/es/docs/intro>

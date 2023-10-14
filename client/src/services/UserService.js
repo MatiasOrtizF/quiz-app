@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const QUIZ_BASE = "http://localhost:8080/user";
+const QUIZ_BASE = "http://192.168.0.9:8080/user";
 
 class UserService {
     getAllUsers() {

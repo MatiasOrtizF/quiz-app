@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:19006", "http://example.com"}) //change to your port
+@CrossOrigin(origins = "*") //change to your port
 @RestController
 public class UserController {
     @Autowired
