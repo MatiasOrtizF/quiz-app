@@ -39,7 +39,6 @@ npm i
 ```sh
 npm install -g expo-cli
 ```
-
 3. Iniciar el proyecto con Expo:
 ```sh
 expo start
