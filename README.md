@@ -16,7 +16,8 @@
 ## Tecnologias Utilizadas
 ### _Lenguajes_
 <p align='center'>
-    <img height="30"src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E">
+    <img height="75"src="https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-javascript-software-develop-command-language-512.png" alt="JavaScript">
+    <img height="75"src="https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-java-software-develop-command-language-512.png" alt="Java">
 </p>
 
 ### _Librerias_
