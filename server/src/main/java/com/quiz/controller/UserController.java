@@ -1,30 +1,39 @@
 package com.quiz.controller;
 
+import com.quiz.exceptions.AlreadyExistException;
 import com.quiz.model.User;
-import com.quiz.repository.UserRepository;
+import com.quiz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*") //change to your port
 @RestController
 public class UserController {
+
+    private final UserService userService;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserController (UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<?> addUser(@RequestBody User user) {
-        List<User> list = userRepository.findByUserName(user.getUserName());
-        if(!list.isEmpty()) {
-            return ResponseEntity.badRequest().body("Username is already in use. Please choose another name.");
+        try {
+            return ResponseEntity.ok(userService.addUser(user));
+        } catch (AlreadyExistException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already in use. Please choose another name.");
         }
-        return ResponseEntity.ok(userRepository.save(user));
     }
 
     @GetMapping("/user")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<?> getAllUsers() {
+        try {
+            return ResponseEntity.ok(userService.getAllUsers());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An error occurred");
+        }
     }
 }
